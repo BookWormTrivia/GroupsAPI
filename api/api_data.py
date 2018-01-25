@@ -13,7 +13,7 @@ def _fetch_all_rows_for_query(query):
     want to share that information? There are many considerations to balance.
     '''
     try:
-        connection = psycopg2.connect(database=config.database, user=config.user, password=config.password)
+        connection = psycopg2.connect(host=config.db_host, database=config.database, user=config.user, password=config.password, port=config.db_port)
     except Exception as e:
         print('Connection error:', e, file=sys.stderr)
         return []
@@ -45,3 +45,9 @@ def getQuestionsByGroup(group_id):
         question['incorrect_answers'] = row[4]
         out.append(question)
     return out
+
+def addGroup(group):
+    query = '''
+                INSERT INTO groups
+                VALUES (\"{0}\")
+            '''.format(group)
