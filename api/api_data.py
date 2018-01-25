@@ -39,10 +39,7 @@ def getQuestionsByGroup(group_id):
     data = _fetch_all_rows_for_query(query)
     out = []
     for row in data:
-        question = {}
-        question['question'] = row[2]
-        question['correct_answer'] = row[3]
-        question['incorrect_answers'] = row[4]
+        question = {'question': row[2], 'correct_answer': row[3], 'incorrect_answers': row[4]}
         out.append(question)
     return out
 
