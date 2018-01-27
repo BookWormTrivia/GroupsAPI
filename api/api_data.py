@@ -35,12 +35,11 @@ def execute_query(query):
         connection = psycopg2.connect(host=config.db_host, database=config.database, user=config.user, password=config.password, port=config.db_port)
     except Exception as e:
         print('Connection error:', e, file=sys.stderr)
-        return []
-
-    rows = []
+        return
     try:
         cursor = connection.cursor()
         cursor.execute(query)
+        connection.commit()
     except Exception as e:
         print('Error querying database:', e, file=sys.stderr)
 
