@@ -30,6 +30,22 @@ def _fetch_all_rows_for_query(query):
     print(rows)
     return rows
 
+def execute_query(query):
+    try:
+        connection = psycopg2.connect(host=config.db_host, database=config.database, user=config.user, password=config.password, port=config.db_port)
+    except Exception as e:
+        print('Connection error:', e, file=sys.stderr)
+        return []
+
+    rows = []
+    try:
+        cursor = connection.cursor()
+        cursor.execute(query)
+    except Exception as e:
+        print('Error querying database:', e, file=sys.stderr)
+
+    connection.close()
+
 def getQuestionsByGroup(group_id):
     query = '''
                 SELECT * FROM questions
@@ -45,6 +61,9 @@ def getQuestionsByGroup(group_id):
 
 def addGroup(group):
     query = '''
-                INSERT INTO groups
-                VALUES (\"{0}\")
+                INSERT INTO groups(
+	               group_name)
+	            VALUES ('{0}');
             '''.format(group)
+    print(query)
+    execute_query(query)

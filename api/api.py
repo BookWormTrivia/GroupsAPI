@@ -18,5 +18,12 @@ def questions_group(group_id):
     out['results'] = data
     return json.dumps(out)
 
+@app.route('/add/groups/', methods=['POST'])
+def add_group():
+    name = flask.request.form['group_name']
+    print(name)
+    api_data.addGroup(name)
+    return name
+
 if __name__ == '__main__':
     app.run(config.api_host, config.api_port)
