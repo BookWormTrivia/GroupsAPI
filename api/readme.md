@@ -5,3 +5,6 @@ For use with BookWorm Trivia Web Application.
 ## EndPoints
 **GET /questions/<group_id>** - 
 Get all the questions for a group, specified by id, in JSON format
+
+**POST /add/groups/** - Parameters: {group_name: name of the group} - 
+Add a group 
