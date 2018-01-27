@@ -44,25 +44,3 @@ def execute_query(query):
         print('Error querying database:', e, file=sys.stderr)
 
     connection.close()
-
-def getQuestionsByGroup(group_id):
-    query = '''
-                SELECT * FROM questions
-                WHERE group_id = {0}
-            '''.format(group_id)
-    print(query)
-    data = _fetch_all_rows_for_query(query)
-    out = []
-    for row in data:
-        question = {'question': row[2], 'correct_answer': row[3], 'incorrect_answers': row[4]}
-        out.append(question)
-    return out
-
-def addGroup(group):
-    query = '''
-                INSERT INTO groups(
-	               group_name)
-	            VALUES ('{0}');
-            '''.format(group)
-    print(query)
-    execute_query(query)

@@ -1,0 +1,47 @@
+from sql_helper import _fetch_all_rows_for_query, execute_query
+
+def getQuestionsByGroup(group_id):
+    query = '''
+                SELECT * FROM questions
+                WHERE group_id = {0}
+            '''.format(group_id)
+    print(query)
+    data = _fetch_all_rows_for_query(query)
+    out = []
+    for row in data:
+        question = {'question': row[2], 'correct_answer': row[3], 'incorrect_answers': row[4]}
+        out.append(question)
+    return out
+
+def addGroup(group):
+    query = '''
+                INSERT INTO groups(
+	               group_name)
+	            VALUES ('{0}');
+            '''.format(group)
+    print(query)
+    execute_query(query)
+
+def addQuestion(group_name, question, correct_answer, incorrect_answers):
+    group_id = getGroupIDByName(group_name)
+    incorrect_str = '{'
+    incorrect_str += incorrect_answers[0] + ', '
+    incorrect_str += incorrect_answers[1] + ', '
+    incorrect_str += incorrect_answers[2] + '}'
+    query = '''
+                INSERT INTO questions(
+	                   group_id, question, correct_answer, incorrect_answers)
+	            VALUES ('{0}', '{1}', '{2}', '{3}');
+            '''.format(group_id, question, correct_answer, incorrect_str)
+    print(query)
+    execute_query(query)
+
+def getGroupIDByName(group_name):
+    query = '''
+                SELECT id
+                FROM groups
+                WHERE group_name = '{0}'
+            '''.format(group_name)
+    rows = _fetch_all_rows_for_query(query)
+    id = rows[0][0]
+    return id
