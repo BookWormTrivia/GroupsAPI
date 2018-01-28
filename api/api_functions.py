@@ -1,16 +1,18 @@
 from sql_helper import _fetch_all_rows_for_query, execute_query
+from random import randint
 
-def getQuestionsByGroup(group_id):
+def getQuestionByGroup(group_id):
     query = '''
                 SELECT * FROM questions
                 WHERE group_id = {0}
             '''.format(group_id)
-    print(query)
-    data = _fetch_all_rows_for_query(query)
+    rows = _fetch_all_rows_for_query(query)
     out = []
-    for row in data:
-        question = {'question': row[2], 'correct_answer': row[3], 'incorrect_answers': row[4]}
-        out.append(question)
+    print(len(rows))
+    i = randint(0, len(rows) - 1)
+    row = rows[i]
+    question = {'question': row[2], 'correct_answer': row[3], 'incorrect_answers': row[4]}
+    out.append(question)
     return out
 
 def addGroup(group):

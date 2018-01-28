@@ -27,7 +27,6 @@ def _fetch_all_rows_for_query(query):
         print('Error querying database:', e, file=sys.stderr)
 
     connection.close()
-    print(rows)
     return rows
 
 def execute_query(query):
