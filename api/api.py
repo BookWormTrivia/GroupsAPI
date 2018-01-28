@@ -27,6 +27,7 @@ def add_group():
 @app.route('/add/questions/', methods=['POST'])
 def add_question():
     group_name = flask.request.form['group_name']
+    print('group name: ', group_name)
     question = flask.request.form['question']
     correct = flask.request.form['correct_answer']
     incorrect = list()

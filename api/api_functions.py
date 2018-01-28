@@ -8,7 +8,6 @@ def getQuestionByGroup(group_id):
             '''.format(group_id)
     rows = _fetch_all_rows_for_query(query)
     out = []
-    print(len(rows))
     i = randint(0, len(rows) - 1)
     row = rows[i]
     question = {'question': row[2], 'correct_answer': row[3], 'incorrect_answers': row[4]}
@@ -44,6 +43,7 @@ def getGroupIDByName(group_name):
                 FROM groups
                 WHERE group_name = '{0}'
             '''.format(group_name)
+    print(query)
     rows = _fetch_all_rows_for_query(query)
     id = rows[0][0]
     return id
