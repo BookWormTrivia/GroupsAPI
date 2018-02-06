@@ -11,8 +11,16 @@ CORS(app)
 def test():
     return "BookWorm Trivia Groups API"
 
-@app.route('/questions/<group_id>', methods=['GET'])
-def questions_group(group_id):
+@app.route('/questions/id/<group_id>/', methods=['GET'])
+def questions_group_byID(group_id):
+    data = api_functions.getQuestionByGroup(group_id)
+    out = {}
+    out['results'] = data
+    return json.dumps(out)
+
+@app.route('/questions/name/<group_name>/', methods=['GET'])
+def questions_group_byName(group_name):
+    group_id = api_functions.getGroupIDByName(group_name)
     data = api_functions.getQuestionByGroup(group_id)
     out = {}
     out['results'] = data
