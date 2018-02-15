@@ -22,6 +22,8 @@ def questions_group_byID(group_id):
 def questions_group_byName(group_name):
     group_id = api_functions.getGroupIDByName(group_name)
     data = api_functions.getQuestionByGroup(group_id)
+    if not data:
+        return 'No Questions'
     out = {}
     out['results'] = data
     return json.dumps(out)

@@ -7,6 +7,9 @@ def getQuestionByGroup(group_id):
                 WHERE group_id = {0}
             '''.format(group_id)
     rows = _fetch_all_rows_for_query(query)
+    # For a new group with no rows
+    if len(rows) == 0:
+        return False
     out = []
     i = randint(0, len(rows) - 1)
     row = rows[i]
