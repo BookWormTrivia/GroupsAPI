@@ -7,6 +7,8 @@ from flask_cors import CORS
 app = flask.Flask(__name__)
 CORS(app)
 
+base_url = 'http://www.bookwormtrivia.com.s3-website.us-east-2.amazonaws.com'
+
 @app.route('/')
 def test():
     return "BookWorm Trivia Groups API"
@@ -32,7 +34,7 @@ def questions_group_byName(group_name):
 def add_group():
     name = flask.request.form['group_name']
     api_functions.addGroup(name)
-    return name
+    return flask.redirect(base_url + '/groups.html')
 
 @app.route('/add/questions/', methods=['POST'])
 def add_question():
